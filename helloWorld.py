@@ -7,3 +7,4 @@ Created on Wed Mar  1 14:19:23 2017
 """
 
 print("hello world!")
+print("I like 6.001!")
