@@ -7,7 +7,7 @@ high = 1.0
 low = 0
 num_steps = 0
 
-guess = (high + low)/2.0
+guess = high
 
 def amountSaved(guess, salary):
     annual_salary = salary
@@ -25,16 +25,18 @@ def amountSaved(guess, salary):
     #print total_saved
     return total_saved
 
-
-while (amountSaved(guess, annual_salary - portion_down_payment)) >= epsilon:
-    if amountSaved(guess, annual_salary) < portion_down_payment:
-        print(amountSaved(guess, annual_salary) - portion_down_payment)
-        low = guess
-    else: 
-        print(amountSaved(guess, annual_salary) - portion_down_payment)
-        high = guess
+if (amountSaved(guess, annual_salary) < portion_down_payment):
+    print 'There is no way you could save enough in 3 years'
+else:
+    while (amountSaved(guess, annual_salary - portion_down_payment)) >= epsilon:
+        if amountSaved(guess, annual_salary) < portion_down_payment:
+            print(amountSaved(guess, annual_salary) - portion_down_payment)
+            low = guess
+        else: 
+            print(amountSaved(guess, annual_salary) - portion_down_payment)
+            high = guess
     guess = (high + low)/2.0
     num_steps +=1
     
-print 'Best savings rate:', guess
-print 'Steps in bisection search:', num_steps
+    print 'Best savings rate:', guess
+    print 'Steps in bisection search:', num_steps
