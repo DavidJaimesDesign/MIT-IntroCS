@@ -88,9 +88,9 @@ def get_guessed_word(secret_word, letters_guessed):
     
     for char in secret_word:
         if char in letters_guessed:
-            for spaces in empty_string:
-                index = secret_word.index(char)
-                empty_string[index] = char
+            for index, spaces in enumerate(empty_string):
+                if secret_word[index] == char:
+                    empty_string[index] = char
 
     return empty_string
 
