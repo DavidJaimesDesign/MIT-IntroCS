@@ -140,8 +140,14 @@ def hangman(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-
+    guess = []
+    guess_left = 6
+    letters_available = get_available_letters(guess)
+    print("Welcome to the game of hangman!")
+    print("I am thinking of a word that is %s letters long" %(len(secret_word)))
+    print(get_guessed_word(secret_word, guess))
+    print("You have %s guesses left" %(guess_left))
+    print("Available letters: %s" %(letters_available))
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -227,8 +233,8 @@ if __name__ == "__main__":
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
     
-    secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    #secret_word = choose_word(wordlist)
+    hangman("potatocannon")
 
 ###############
     
