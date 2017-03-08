@@ -147,15 +147,23 @@ def hangman(secret_word):
     print("Welcome to the game of hangman!")
     print("I am thinking of a word that is %s letters long" %(len(secret_word)))
     print(get_guessed_word(secret_word, guesses))
-    print("You have %s guesses left" %(guesses_left))
-    print("Available letters: %s" %(letters_available))
     
     #Game Loop
     while guesses_left > 0:
         print("You have %s guesses left" %(guesses_left))
+        print("Available letters: %s" %(get_available_letters(guesses)))
         guess = input("please guess: ")
-        #print guess
-        guesses_left -= 1
+        if guess not in guesses:
+            guesses.append(guess)
+            if is_word_guessed(secret_word, guesses):
+                print("YOU WIN")
+                break
+            else:
+                guesses_left -= 1
+        else: 
+            print("You already guessed that one")
+
+        print(get_guessed_word(secret_word, guesses))
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -242,7 +250,7 @@ if __name__ == "__main__":
     # uncomment the following two lines.
     
     #secret_word = choose_word(wordlist)
-    hangman("potatocannon")
+    hangman("cannon")
 
 ###############
     
