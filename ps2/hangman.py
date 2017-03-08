@@ -142,6 +142,7 @@ def hangman(secret_word):
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     guesses = []
     guesses_left = 6
+    warnings_left = 3
     letters_available = get_available_letters(guesses)
     #Start game
     print("Welcome to the game of hangman!")
@@ -151,17 +152,27 @@ def hangman(secret_word):
     #Game Loop
     while guesses_left > 0:
         print("You have %s guesses left" %(guesses_left))
+        print("You have %s warnings left" %(warnings_left))
         print("Available letters: %s" %(get_available_letters(guesses)))
         guess = input("please guess: ")
-        if guess not in guesses:
-            guesses.append(guess)
-            if is_word_guessed(secret_word, guesses):
-                print("YOU WIN")
-                break
-            elif guess not in secret_word:
-                guesses_left -= 1
+        if guess.isalpha() and len(guess) == 1:
+            guess = guess.lower()
+            if guess not in guesses:
+                guesses.append(guess)
+                if is_word_guessed(secret_word, guesses):
+                    print("YOU WIN")
+                    break
+                elif guess not in secret_word:
+                    guesses_left -= 1
+            else: 
+                print("You already guessed that one")
         else: 
-            print("You already guessed that one")
+            print("You didnt input a letter or you put more then one letter in")
+            warnings_left -= 1
+            print("You now have %s warnings left" %(warnings_left))
+            if warnings_left == 0:
+                print("YOU HAVE USED ALL YOUR WARNINGS GAME OVER")
+                break
 
         print(get_guessed_word(secret_word, guesses))
 
