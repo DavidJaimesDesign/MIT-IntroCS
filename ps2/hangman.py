@@ -92,7 +92,7 @@ def get_guessed_word(secret_word, letters_guessed):
                 if secret_word[index] == char:
                     empty_string[index] = char
 
-    return empty_string
+    return ''.join(empty_string)
 
 
 def get_available_letters(letters_guessed):
@@ -100,9 +100,17 @@ def get_available_letters(letters_guessed):
     letters_guessed: list (of letters), which letters have been guessed so far
     returns: string (of letters), comprised of letters that represents which letters have not
       yet been guessed.
-    '''
+    '''  
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    letters = []
+    for char in string.ascii_lowercase:
+        letters.append(char)
+        
+    for char in letters:
+        if char in letters_guessed:
+            letters[letters.index(char)] = ''
+            
+    return ''.join(letters)
     
     
 
