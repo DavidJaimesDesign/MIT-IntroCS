@@ -158,7 +158,7 @@ def hangman(secret_word):
             if is_word_guessed(secret_word, guesses):
                 print("YOU WIN")
                 break
-            else:
+            elif guess not in secret_word:
                 guesses_left -= 1
         else: 
             print("You already guessed that one")
