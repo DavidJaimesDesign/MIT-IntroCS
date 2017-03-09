@@ -148,6 +148,7 @@ def hangman(secret_word):
     print("Welcome to the game of hangman!")
     print("I am thinking of a word that is %s letters long" %(len(secret_word)))
     print(get_guessed_word(secret_word, guesses))
+    print("For vowels you lose 2 for consonants 1")
     
     #Game Loop
     while guesses_left > 0:
@@ -163,7 +164,10 @@ def hangman(secret_word):
                     print("YOU WIN")
                     break
                 elif guess not in secret_word:
-                    guesses_left -= 1
+                    if guess in ('a', 'e', 'i', 'o', 'u'):
+                        guesses_left -= 2
+                    else:
+                        guesses_left -= 1
             else: 
                 print("You already guessed that one")
         else: 
@@ -176,6 +180,8 @@ def hangman(secret_word):
 
         print(get_guessed_word(secret_word, guesses))
 
+    if guesses_left == 0:
+        print("You lose the correct word was:",secret_word)
 
 # When you've completed your hangman function, scroll down to the bottom
 # of the file and uncomment the first two lines to test
