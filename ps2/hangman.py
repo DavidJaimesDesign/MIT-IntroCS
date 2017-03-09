@@ -161,7 +161,9 @@ def hangman(secret_word):
             if guess not in guesses:
                 guesses.append(guess)
                 if is_word_guessed(secret_word, guesses):
+                    total_score = guesses_left * len(list(set(secret_word)))
                     print("YOU WIN")
+                    print("Your score is %s" %(total_score))
                     break
                 elif guess not in secret_word:
                     if guess in ('a', 'e', 'i', 'o', 'u'):
