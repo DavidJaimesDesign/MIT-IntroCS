@@ -276,7 +276,53 @@ def hangman_with_hints(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    guesses = []
+    guesses_left = 6
+    warnings_left = 3
+    #Start game
+    print("Welcome to the game of hangman!")
+    print("I am thinking of a word that is %s letters long" %(len(secret_word)))
+    print(get_guessed_word(secret_word, guesses))
+    print("For vowels you lose 2 for consonants 1")
+    print("For a hint type * after making at least one correct guess")
+    
+    #Game Loop
+    while guesses_left > 0:
+        print("You have %s guesses left" %(guesses_left))
+        print("You have %s warnings left" %(warnings_left))
+        print("Available letters: %s" %(get_available_letters(guesses)))
+        guess = input("please guess: ")
+        if guess == "*" and len(guesses) > 0:
+            word_guess = get_guessed_word(secret_word, guesses)
+            show_possible_matches(word_guess)
+        elif guess.isalpha() and len(guess) == 1:
+            guess = guess.lower()
+            if guess not in guesses:
+                guesses.append(guess)
+                if is_word_guessed(secret_word, guesses):
+                    total_score = guesses_left * len(list(set(secret_word)))
+                    print("YOU WIN")
+                    print("Your score is %s" %(total_score))
+                    break
+                elif guess not in secret_word:
+                    if guess in ('a', 'e', 'i', 'o', 'u'):
+                        guesses_left -= 2
+                    else:
+                        guesses_left -= 1
+            else: 
+                print("You already guessed that one")
+        else: 
+            print("You didnt input a letter or you put more then one letter in")
+            warnings_left -= 1
+            print("You now have %s warnings left" %(warnings_left))
+            if warnings_left == 0:
+                print("YOU HAVE USED ALL YOUR WARNINGS GAME OVER")
+                break
+
+        print(get_guessed_word(secret_word, guesses))
+
+    if guesses_left == 0:
+        print("You lose the correct word was:",secret_word)
 
 
 
