@@ -143,7 +143,6 @@ def hangman(secret_word):
     guesses = []
     guesses_left = 6
     warnings_left = 3
-    letters_available = get_available_letters(guesses)
     #Start game
     print("Welcome to the game of hangman!")
     print("I am thinking of a word that is %s letters long" %(len(secret_word)))
@@ -204,10 +203,21 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise: 
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-
-
+    clean_my_word = my_word.replace(" ", "")
+    my_word_array = list(clean_my_word)
+    other_word_array = list(other_word)
+    
+    if len(clean_my_word) != len(other_word):
+        return False
+    
+    for idx, char in enumerate(my_word_array):
+        if char == "_":
+            other_word_array[idx] = "_"
+            
+    if my_word_array == other_word_array:
+        return True
+    else: 
+        return False
 
 def show_possible_matches(my_word):
     '''
@@ -220,7 +230,21 @@ def show_possible_matches(my_word):
 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    possible_matches = []
+    wordlist = load_words()
+    
+    for word in wordlist:
+        if match_with_gaps(my_word, word):
+            possible_matches.append(word)
+            
+    if len(possible_matches) < 1:
+        print("ERROR: you are using a word not in the word database")
+    else: 
+        possible_matches_string = ''
+        for word in possible_matches:
+            possible_matches_string += (' ' + word)
+        print(possible_matches_string)
+    
 
 
 
@@ -268,13 +292,13 @@ if __name__ == "__main__":
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
     
-    secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    #secret_word = choose_word(wordlist)
+    #hangman(secret_word)
 
 ###############
     
     # To test part 3 re-comment out the above lines and 
     # uncomment the following two lines. 
     
-    #secret_word = choose_word(wordlist)
-    #hangman_with_hints(secret_word)
+    secret_word = choose_word(wordlist)
+    hangman_with_hints(secret_word)
